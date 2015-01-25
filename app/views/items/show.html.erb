@@ -2,6 +2,14 @@
 <p>
 <%= image_tag @item.uploaded_file.url(:medium), :class => 'img-rounded' %>
 </p>
+
+<%  if @item.category_id.present? %>
+<p>
+	<strong>Category:</strong>
+	<%= @item.category.descr%>
+</p>
+<% end %>
+
 <p>
   <strong>Code:</strong>
   <%= @item.code %>
