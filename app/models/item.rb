@@ -12,4 +12,10 @@ class Item < ActiveRecord::Base
 			all
 		end
 	end
+
+	def self.filter(category_id)
+		if category_id.present?
+			where('category_id = ?', category_id)
+		end
+	end
 end

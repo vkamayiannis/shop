@@ -6,6 +6,8 @@ class ItemsController < ApplicationController
   def index
     if params[:keyword].present?
       @items = Item.search(params[:keyword]).paginate(:page => params[:page], :per_page => 5)
+    elsif params[:category_id].present?
+      @items = Item.filter(params[:category_id]).paginate(:page => params[:page], :per_page => 5) 
     else
       @items = Item.paginate(:page => params[:page], :per_page => 5)
     end
