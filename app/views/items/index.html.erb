@@ -1,9 +1,9 @@
-<h1>Listing items</h1>
+<!-- <h1>Listing items</h1> -->
 <form method="get">
  <legend>Search</legend>
  <input type = 'text' class='form-control' value='<%= params[:keyword] %>' name='keyword' placeholder='Keyword'>
 </form>
-<table class="table-striped">
+<table class="table table-hover">
   <thead>
     <tr>
       <th colspan="1"></th>
@@ -18,14 +18,14 @@
   <tbody>
     <% @items.each do |item| %>
       <tr>
-        <td><%= image_tag item.uploaded_file.url(:thumb), size: "100x100", :class => 'img-rounded' %></td>
-        <td class="col-md-2"><%= item.code %></td>
-        <td class="col-md-5"><%= item.description %></td>
+        <td><%= image_tag item.uploaded_file.url(:thumb), size: "100x100", :class => 'img-circle' %></td>
+        <td class="col-md-2"><%= link_to item.code, item %></td>
+        <td class="col-md-5"><%= link_to item.description, item %></td>
         <td class="col-md-1"><%= item.price %></td>
-        <td class="col-md-2"><%= link_to item.category.descr, items_path(category_id: item.category_id) if item.category_id.present? %></td>
-        <td><%= link_to 'Show', item %></td>
-        <td><%= link_to 'Edit', edit_item_path(item) if current_user.admin? %></td>
-        <td><%= link_to 'Destroy', item, method: :delete, data: { confirm: 'Are you sure?' } if current_user.admin? %></td>
+        <td class="col-md-2"><%= link_to item.category.descr, items_path(category_id: item.category_id), :class=>'btn btn-success btn-sm',  :role=>"button" if item.category_id.present? %></td>
+        <!--<td><%= link_to 'Show', item, :class => 'btn btn-primary' %></td> -->
+        <td class="col-md-1"><%= link_to 'Edit', edit_item_path(item), :class => 'btn btn-primary', :role=>"button" if current_user.admin? %></td> 
+        <td class="col-md-1"><%= link_to 'Destroy', item, method: :delete, data: { confirm: 'Are you sure?' }, :class => 'btn btn-danger', :role=>"button" if current_user.admin? %></td>
       </tr>
     <% end %>
   </tbody>
@@ -34,7 +34,12 @@
 <br>
 <%= will_paginate @books, :style => 'color:blue' %>
 <br>
-<%= link_to new_item_path, class: 'btn btn-success' do %>
-  <i class="glyphicon glyphicon-plus"></i> New Item
+<% if current_user.admin? %>
+  <%= link_to new_item_path, class: 'btn btn-success' do %>
+    <i class="glyphicon glyphicon-plus"></i> New Item
+  <% end %>
 <% end %>
-<br>
+</br>
+</br>
+</br>
+</br>
