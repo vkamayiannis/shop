@@ -1,9 +1,11 @@
 Rails.application.routes.draw do
+  devise_for :add_confirmable_to_users
   devise_for :admins
   devise_for :users
   resources :categories
 
   resources :items
+  resources :users 
   root to: 'items#index'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

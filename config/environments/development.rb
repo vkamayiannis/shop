@@ -36,5 +36,14 @@ Rails.application.configure do
   # config.action_view.raise_on_missing_translations = true
   Paperclip.options[:command_path] = 'C:\Program Files\ImageMagick-6.9.0-Q16'
   config.action_mailer.default_url_options = { :host => 'localhost:3000' }
-
+  #config.action_mailer.delivery_method = :smtp
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.raise_delivery_errors = true 
+  config.action_mailer.smtp_settings = {
+    :address              => "smtp.gmail.com",
+    :port                 => 587,
+    :domain               => "gmail.com", 
+    :user_name            => 'vkamayiannis@gmail.com',
+    :password             => 'cd789xyy',
+    :authentication       => 'plain'}
 end
