@@ -20,8 +20,17 @@ class Item < ActiveRecord::Base
 	end
 
 	def self.import(file)
-		CSV.foreach(file.path, headers: false) do |row|
-			Item.create! row.to_h.symbolize_keys
+		CSV.foreach(file.path, headers: true) do |row|
+			Item.create!(row.to_hash)
+		end
+	end
+
+	def self.to_csv(options = {})
+		CSV.generate(options) do |csv|
+			csv << column_names
+			all.each do |item|
+				csv << item.attributes.values_at(*column_names)
+			end
 		end
 	end
 end
