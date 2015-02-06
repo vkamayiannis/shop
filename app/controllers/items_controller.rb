@@ -42,6 +42,11 @@ class ItemsController < ApplicationController
     respond_with(@item)
   end
 
+  def import
+    Item.import(params[:file])
+    redirect_to root_url, notice: "Products imported." 
+  end
+
   private
     def set_item
       @item = Item.find(params[:id])

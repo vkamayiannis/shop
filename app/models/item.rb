@@ -18,4 +18,10 @@ class Item < ActiveRecord::Base
 			where('category_id = ?', category_id)
 		end
 	end
+
+	def self.import(file)
+		CSV.foreach(file.path, headers: false) do |row|
+			Item.create! row.to_h.symbolize_keys
+		end
+	end
 end
