@@ -11,7 +11,13 @@ class ItemsController < ApplicationController
     else
       @items = Item.paginate(:page => params[:page], :per_page => 5)
     end
-    respond_with(@items)
+    @export_items = Item.all
+    #respond_with(@items)
+    respond_to do |format|
+      format.html
+      format.csv {send_data @export_items.to_csv}
+      format.xls
+    end
   end
 
   def show
