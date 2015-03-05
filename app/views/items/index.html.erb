@@ -1,8 +1,8 @@
 <!-- <h1>Listing items</h1> -->
-<form method="get">
+<!-- <form method="get">
  <legend>Search</legend>
  <input type = 'text' class='form-control' value='<%= params[:keyword] %>' name='keyword' placeholder='Keyword'>
-</form></br>
+</form></br> -->
 <% if current_user.admin? %>
   <p>
     Download: 
@@ -44,7 +44,7 @@
   <% end %>
 <% end %>
 <br>
-<%= will_paginate @books, :style => 'color:blue' %>
+<%= will_paginate @items, :style => 'color:blue' %>
 <br>
 <% if current_user.admin? %>
   <%= link_to new_item_path, class: 'btn btn-success' do %>

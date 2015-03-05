@@ -50,13 +50,29 @@
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
-<% if notice %>
-  <p class="alert alert-success"><%= notice %></p>
-<% end %>
-<% if alert %>
-  <p class="alert alert-danger"><%= alert %></p>
-<% end %>
-<%= yield %>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-3 col-md-2 sidebar">
+      <legend>Αναζήτηση</legend>
+      <%= form_tag items_path, :method => 'get' do %>
+        <%= text_field_tag :keyword, params[:keyword], {:class => 'form-control', :placeholder => 'Κωδικός'} %></br>
+        <%= text_field_tag :searchdescr, params[:searchdescr], {class: 'form-control', placeholder: 'Περιγραφή'} %></br>
+        <%= collection_select :item, params[:searchcateg], Category.all, :id, :descr, {}, {class: 'form-control'} %></br>
+        <%= submit_tag "Αναζήτηση", name: "Search" %>
+      <% end %>
+    </div>
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+      <% if notice %>
+        <p class="alert alert-success"><%= notice %></p>
+      <% end %>
+      <% if alert %>
+        <p class="alert alert-danger"><%= alert %></p>
+      <% end %>
+      <%= yield %>
+    </div>
+  </div>
+</div>
 
 </body>
 </html>

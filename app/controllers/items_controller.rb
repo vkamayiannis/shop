@@ -4,13 +4,14 @@ class ItemsController < ApplicationController
   respond_to :html
 
   def index
-    if params[:keyword].present?
+    if params[:keyword].present? 
       @items = Item.search(params[:keyword]).paginate(:page => params[:page], :per_page => 5)
     elsif params[:category_id].present?
       @items = Item.filter(params[:category_id]).paginate(:page => params[:page], :per_page => 5) 
     else
       @items = Item.paginate(:page => params[:page], :per_page => 5)
     end
+
     @export_items = Item.all
     #respond_with(@items)
     respond_to do |format|
@@ -60,5 +61,9 @@ class ItemsController < ApplicationController
 
     def item_params
       params.require(:item).permit(:code, :description, :price, :uploaded_file, :category_id)
+    end
+
+    def filtering_params(params)
+      params.slice(:keyword, :searchdescr, :searchcateg)
     end
 end
